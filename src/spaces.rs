@@ -1,14 +1,14 @@
 use std::{marker::PhantomData, any::type_name, fmt};
 
-pub struct Dimension<T> {
+pub struct Dimension<'a, T: 'a> {
   dtype: PhantomData<T>,
-  name: String,
-  description: String,
+  name: &'a str,
+  description: &'a str,
   frozen: bool,
 }
 
-impl<T> Dimension<T> {
-  pub fn new(name: String, description: String, frozen: bool) -> Self {
+impl<'a, T> Dimension<'a, T> {
+  pub fn new(name: &'a str, description: &'a str, frozen: bool) -> Self {
     Dimension {
       dtype: PhantomData {},
       name,
@@ -22,7 +22,7 @@ impl<T> Dimension<T> {
   }
 }
 
-impl<T> fmt::Debug for Dimension<T> {
+impl<'a, T> fmt::Debug for Dimension<'a, T> {
   fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
     let first_word = if !self.frozen { "Mutable" } else { "Frozen" };
     match self {
