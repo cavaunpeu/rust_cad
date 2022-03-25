@@ -3,6 +3,12 @@ mod test {
   use rust_cad::spaces::Dimension;
 
   #[test]
+  fn test_dim_creation() {
+    let dim_a = Dimension::<String>::new(String::from("a"), String::from(""), false);
+    assert_eq!(dim_a.get_type(), "alloc::string::String");
+  }
+
+  #[test]
   fn test_dim_print() {
     let dim_a = Dimension::<String>::new(String::from("a"), String::from(""), false);
     let dim_b = Dimension::<i64>::new(String::from("b"), String::from("Desc B"), false);
