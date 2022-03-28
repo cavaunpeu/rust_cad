@@ -5,7 +5,7 @@ mod test {
   #[test]
   fn test_dim_creation() {
     let dim_a = Dimension::<String>::new("a", "", false);
-    assert_eq!(dim_a.get_type(), "alloc::string::String");
+    assert_eq!(dim_a.get_dtype(), "alloc::string::String");
   }
 
   #[test]
