@@ -17,6 +17,14 @@ impl<'a, T> Dimension<'a, T> {
     }
   }
 
+  pub fn is_frozen(&self) -> bool {
+    self.frozen
+  }
+
+  pub fn freeze(&mut self) {
+    self.frozen = true;
+  }
+
   pub fn get_dtype(&self) -> &'static str {
     type_name::<T>()
   }
@@ -29,12 +37,22 @@ impl<'a, T> Dimension<'a, T> {
     &self.description
   }
 
-  pub fn set_name(&mut self, name: &'a str) {
-    self.name = name;
+  pub fn set_name(&mut self, name: &'a str) -> Result<(), String> {
+    if !self.frozen {
+      self.name = name;
+      Ok(())
+    } else {
+      Err("Cannot set name on frozen dimension".into())
+    }
   }
 
-  pub fn set_description(&mut self, description: &'a str) {
-    self.description = description;
+  pub fn set_description(&mut self, description: &'a str) -> Result<(), String> {
+    if !self.frozen {
+      self.description = description;
+      Ok(())
+    } else {
+      Err("Cannot set description on frozen dimension".into())
+    }
   }
 }
 
