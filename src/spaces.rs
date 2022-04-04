@@ -56,6 +56,10 @@ impl<'a, T> Dimension<'a, T> {
       Err(FreezingError{ description: "Cannot set description on frozen dimension" })
     }
   }
+
+  pub fn is_equivalent(&self, other: Dimension<'a, T>) -> bool {
+    self.get_dtype() == other.get_dtype()
+  }
 }
 
 

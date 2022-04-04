@@ -82,4 +82,12 @@ mod test {
     let dim_a = Dimension::<SomeExoticType>::new("a", "", false);
     assert_eq!(dim_a.get_dtype(), "dims::test::test_dim_creation_exotic::SomeExoticType");
   }
+
+  #[test]
+  fn test_dim_equivalence() {
+    let dim_a = Dimension::<i64>::new("a", "", false);
+    let dim_b = Dimension::<i64>::new("b", "Description of B", false);
+
+    assert!(dim_a.is_equivalent(dim_b));
+  }
 }
