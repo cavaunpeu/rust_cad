@@ -90,4 +90,18 @@ mod test {
 
     assert!(dim_a.is_equivalent(dim_b));
   }
+
+  #[test]
+  fn test_dim_copy() {
+    let dim_a = Dimension::<i64>::new("a", "", false);
+    let copy1 = dim_a.copy(None, None, None);
+    let copy2 = dim_a.copy(Some("new_name_for_copy"), None, None);
+    let copy3 = dim_a.copy(None, Some("new description for the copy"), None);
+
+    assert_eq!(dim_a, copy1);
+    assert_eq!(copy2.get_name(), "new_name_for_copy");
+    assert_eq!(copy3.get_description(), "new description for the copy");
+    assert!(dim_a.is_equivalent(copy2));
+    assert!(dim_a.is_equivalent(copy3));
+  }
 }

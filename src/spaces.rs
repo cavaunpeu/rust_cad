@@ -60,6 +60,14 @@ impl<'a, T> Dimension<'a, T> {
   pub fn is_equivalent(&self, other: Dimension<'a, T>) -> bool {
     self.get_dtype() == other.get_dtype()
   }
+
+  pub fn copy(&self, name: Option<&'a str>, description: Option<&'a str>, frozen: Option<bool>) -> Self {
+    Dimension::new(
+      name.unwrap_or(self.name),
+      description.unwrap_or(self.description),
+      frozen.unwrap_or(self.frozen)
+    )
+  }
 }
 
 
