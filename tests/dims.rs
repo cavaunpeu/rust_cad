@@ -1,6 +1,7 @@
 #[cfg(test)]
 mod test {
-  use rust_cad::spaces::Dimension;
+  use core::panic;
+  use rust_cad::{spaces::Dimension, errors::FreezingError};
 
   #[test]
   fn test_dim_creation() {
@@ -46,5 +47,20 @@ mod test {
 
     dim_a.freeze();
     assert!(dim_a.is_frozen())
+  }
+
+  #[test]
+  fn test_dim_freezing() {
+    let mut dim_c = Dimension::<f64>::new("c", "Desc C", true);
+
+    match dim_c.set_name("New Name C") {
+      Err(e) => assert_eq!(e, FreezingError{ description: "Cannot set name on frozen dimension" }),
+      Ok(()) => panic!("Test should not reach here")
+    }
+
+    match dim_c.set_description("New Description C") {
+      Err(e) => assert_eq!(e, FreezingError{ description: "Cannot set description on frozen dimension" }),
+      Ok(()) => panic!("Test should not reach here")
+    }
   }
 }

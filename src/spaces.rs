@@ -1,4 +1,5 @@
 use std::{marker::PhantomData, any::type_name, fmt};
+use crate::errors::FreezingError;
 
 pub struct Dimension<'a, T> {
   dtype: PhantomData<T>,
@@ -37,21 +38,21 @@ impl<'a, T> Dimension<'a, T> {
     &self.description
   }
 
-  pub fn set_name(&mut self, name: &'a str) -> Result<(), String> {
+  pub fn set_name(&mut self, name: &'a str) -> Result<(), FreezingError> {
     if !self.frozen {
       self.name = name;
       Ok(())
     } else {
-      Err("Cannot set name on frozen dimension".into())
+      Err(FreezingError{ description: "Cannot set name on frozen dimension" })
     }
   }
 
-  pub fn set_description(&mut self, description: &'a str) -> Result<(), String> {
+  pub fn set_description(&mut self, description: &'a str) -> Result<(), FreezingError> {
     if !self.frozen {
       self.description = description;
       Ok(())
     } else {
-      Err("Cannot set description on frozen dimension".into())
+      Err(FreezingError{ description: "Cannot set description on frozen dimension" })
     }
   }
 }
