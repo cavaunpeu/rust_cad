@@ -1,6 +1,7 @@
 use std::{marker::PhantomData, any::type_name, fmt};
 use crate::errors::FreezingError;
 
+#[derive(PartialEq)]
 pub struct Dimension<'a, T> {
   dtype: PhantomData<T>,
   name: &'a str,

@@ -63,4 +63,15 @@ mod test {
       Ok(()) => panic!("Test should not reach here")
     }
   }
+
+  #[test]
+  fn test_dim_equality() {
+    let dim_a = Dimension::<i64>::new("a", "", false);
+    let dim_b = Dimension::<i64>::new("b", "Description", false);
+    let dim_c = Dimension::<f64>::new("d", "Description", true);
+    let dim_d = Dimension::<f64>::new("d", "Description", true);
+
+    assert_ne!(dim_a, dim_b);
+    assert_eq!(dim_c, dim_d);
+  }
 }
