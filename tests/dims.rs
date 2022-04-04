@@ -74,4 +74,12 @@ mod test {
     assert_ne!(dim_a, dim_b);
     assert_eq!(dim_c, dim_d);
   }
+
+  #[test]
+  fn test_dim_creation_exotic() {
+    struct SomeExoticType {}
+
+    let dim_a = Dimension::<SomeExoticType>::new("a", "", false);
+    assert_eq!(dim_a.get_dtype(), "dims::test::test_dim_creation_exotic::SomeExoticType");
+  }
 }
